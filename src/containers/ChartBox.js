@@ -47,6 +47,11 @@ const getSongs = async (genreId) => {
     return { title: data.feed.title.label, songs };
 };
 
+const charsAsSpans = (str) => {
+    const chars = str.split("");
+    return chars.map(ch => <span>{ch}</span>);
+}
+
 const ChartBox = () => {
     const [songs, setSongs] = useState([]);
     const [genreId, setGenreId] = useState(null);
@@ -68,9 +73,10 @@ const ChartBox = () => {
 
     return <>
         <h2>{`${title}`}</h2>
+        <h3 class="christmas-banner" onClick={()=>setGenreId(1080)}>{charsAsSpans("It's Christmas!")}</h3>
         {/*<GenreNav genreId={genreId} />*/}
         {/* <p>{genreId ?? "<null>"}</p> */}
-        <button onClick={backToAllChart}>Back to all genres</button>
+        { genreId && <button onClick={backToAllChart}>Back to all genres</button> }
         <SongList songs={songs} onClickGenre={handleClickGenre} />
     </>;
 };

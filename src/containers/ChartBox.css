@@ -1,3 +1,19 @@
 .ChartBox {
     outline: 1px solid chartreuse;
 }
+
+.christmas-banner {
+    text-align: center;
+    font-size: 3rem;
+    text-decoration: wavy;
+    outline: 4px dashed green;
+    border: 4px dashed red;
+}
+
+.christmas-banner > :nth-child(even) {
+    color: red;
+}
+
+.christmas-banner > :nth-child(odd) {
+    color: green;
+}
