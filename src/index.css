@@ -1,0 +1,15 @@
+*, *::after, *::before { box-sizing: border-box }
+body, p, div, h1, h2, h3, h4, h5, h6 { margin: 0 }
+
+body {
+    font-family: Lato, 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-size: 1rem;
+    background-color: white;
+    color: black;
+}
+
+/* Theme colours */
+:root {
+    --header-bg: bisque;
+    --header-fg: black;
+}
