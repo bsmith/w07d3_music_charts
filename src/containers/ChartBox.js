@@ -71,14 +71,14 @@ const ChartBox = () => {
         setGenreId(null);
     }
 
-    return <>
+    return <section className="ChartBox">
         <h2>{`${title}`}</h2>
         <h3 class="christmas-banner" onClick={()=>setGenreId(1080)}>{charsAsSpans("It's Christmas!")}</h3>
         {/*<GenreNav genreId={genreId} />*/}
         {/* <p>{genreId ?? "<null>"}</p> */}
         { genreId && <button onClick={backToAllChart}>Back to all genres</button> }
         <SongList songs={songs} onClickGenre={handleClickGenre} />
-    </>;
+    </section>;
 };
 
 export default ChartBox;
