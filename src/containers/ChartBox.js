@@ -4,6 +4,7 @@ import SongList from '../components/SongList';
 import './ChartBox.css';
 
 const apiEndpoint = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
+const genreEndpoint = genreId => `https://itunes.apple.com/gb/rss/topsongs/limit=20/genre=${genreId}/json`;
 
 const makeSong = (entry, index) => {
     return {
@@ -22,8 +23,9 @@ const makeSong = (entry, index) => {
     }
 }
 
-const getSongs = async () => {
-    const res = await fetch(apiEndpoint);
+const getSongs = async (genreId) => {
+    console.log("getSongs", genreId);
+    const res = await fetch(genreId !== null ? genreEndpoint(genreId) : apiEndpoint);
 
     if (res.status !== 200)
         throw new Error('Did not get 200 response');
@@ -34,24 +36,42 @@ const getSongs = async () => {
     /* only key is 'feed' */
     console.log("data.feed", Object.keys(data.feed));
     /* keys are 'author', 'entry', 'updated', 'rights', 'title', 'icon', 'link', 'id' */
+    console.log("data.feed.title", data.feed.title);
     console.log("data.feed.entry[0]", Object.keys(data.feed.entry[0]));
     /* keys are 'im:name', 'im:image', 'im:collection', 'im:price', 'im:contentType', 'rights', 'title', 'link', 'id', 'im:artist', 'category', 'im:releaseDate' */
 
+    console.log(data.feed.entry.map(e => e["im:name"]["label"]));
+
     const songs = data.feed.entry.map(makeSong);
 
-    return songs;
+    return { title: data.feed.title.label, songs };
 };
 
 const ChartBox = () => {
     const [songs, setSongs] = useState([]);
+    const [genreId, setGenreId] = useState(null);
+    const [title, setTitle] = useState("Please wait...");
 
     useEffect(() => {
-        getSongs().then(setSongs)
-    }, []);
+        getSongs(genreId).then(({title, songs}) => (setSongs(songs), setTitle(title)))
+    }, [genreId]);
+
+    const handleClickGenre = (genreId) => {
+        console.log("handleClickGenre", genreId);
+        setGenreId(genreId);
+    }
+
+    const backToAllChart = () => {
+        console.log("backToAllChart");
+        setGenreId(null);
+    }
 
     return <>
-        <h2>ChartBox</h2>
-        <SongList songs={songs} />
+        <h2>{`${title}`}</h2>
+        {/*<GenreNav genreId={genreId} />*/}
+        {/* <p>{genreId ?? "<null>"}</p> */}
+        <button onClick={backToAllChart}>Back to all genres</button>
+        <SongList songs={songs} onClickGenre={handleClickGenre} />
     </>;
 };
 
