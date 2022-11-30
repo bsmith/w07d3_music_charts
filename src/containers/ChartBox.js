@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import SongList from '../components/SongList';
 import './ChartBox.css';
 
 const apiEndpoint = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
@@ -7,11 +8,15 @@ const apiEndpoint = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
 const makeSong = (entry, index) => {
     return {
         _index: index,
-        id: entry["id"],
-        name: entry["im:name"],
-        title: entry["title"],
-        artist: entry["im:artist"],
-        category: entry["category"]
+        chartpos: index + 1,
+        album_href: entry["id"]["label"],
+        name: entry["im:name"]["label"],
+        title: entry["title"]["label"],
+        artist: entry["im:artist"]["label"],
+        artist_href: entry["im:artist"]["attributes"]["href"],
+        genre: entry["category"]["attributes"]["label"],
+        genre_href: entry["category"]["attributes"]["scheme"],
+        genre_id: entry["category"]["attributes"]["im:id"],
     }
 }
 
@@ -42,18 +47,9 @@ const ChartBox = () => {
         getSongs().then(setSongs)
     }, []);
 
-    const songItems = songs.map(song => {
-        return <li key={song._index}>
-            {/* { Object.keys(song).map((k) => (<div>k: <code>{JSON.stringify(song[k]})</code></div>)) } */}
-            { Object.keys(song).map((k) => (<div>{k}: <code>{JSON.stringify(song[k])}</code></div>)) }
-        </li>
-    });
-
     return <>
         <h2>ChartBox</h2>
-        <ul>
-            { songItems }
-        </ul>
+        <SongList songs={songs} />
     </>;
 };
 
