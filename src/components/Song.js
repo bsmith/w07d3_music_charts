@@ -1,16 +1,19 @@
+import "./Song.css";
+
 const Song = ({song, onClickGenre}) => {
-    // return <span>
-    //     { Object.keys(song).map((k) => (<div key={k}>{k}: <code>{JSON.stringify(song[k])}</code></div>)) }
-    // </span>
     /* NB. genre_href doesn't seem to work, but that's okay! */
-    return <div className="Song">
-        <span>#{song.chartpos}</span>
-        <a href={song.album_href}>{song.name}</a>
-        <a href={song.artist_href}>{song.artist}</a>
+    return <article className="Song">
+        <span className="Song--chartpos">#{song.chartpos}</span>
+        <h3 className="Song--name" href={song.href}>{song.name}</h3>
+        <a className="Song--artist" href={song.artist_href}>by {song.artist}</a>
+        <a className="Song--album" href={song.album_href}>from {song.album}</a>
         { onClickGenre
-            ? <button onClick={(e)=>onClickGenre(song.genre)}>{song.genre}</button>
-            : <span>{song.genre}</span> }
-    </div>
+            ? <button className="Song--genre" onClick={(e)=>onClickGenre(song.genre)}>{song.genre}</button>
+            : <span className="Song--genre">{song.genre}</span> }
+        {/* { Object.keys(song._orig).map((k) => 
+            <div key={k}><b>{k}:</b> {JSON.stringify(song._orig[k])}</div>
+        ) } */}
+    </article>
 };
 
 export default Song;

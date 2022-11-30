@@ -8,10 +8,12 @@ const apiEndpoint = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
 const makeSong = (entry, index) => {
     return {
         _index: index,
+        _orig: entry,
         chartpos: index + 1,
-        album_href: entry["id"]["label"],
         name: entry["im:name"]["label"],
-        title: entry["title"]["label"],
+        href: entry["link"][0]["attributes"]["href"],
+        album: entry["im:collection"]["im:name"]["label"],
+        album_href: entry["im:collection"]["link"]["attributes"]["href"],
         artist: entry["im:artist"]["label"],
         artist_href: entry["im:artist"]["attributes"]["href"],
         genre: entry["category"]["attributes"]["label"],
