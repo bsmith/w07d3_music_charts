@@ -1,7 +1,7 @@
 .Song {
     display: grid;
     grid-template-columns: 4.5rem 1fr;
-    grid-template-rows: repeat(3, 1.5rem);
+    grid-template-rows: repeat(3, minmax(1.5rem, auto));
 }
 
 /* .Song * { outline: 1px solid chartreuse } */
@@ -28,4 +28,5 @@
     padding: 0;
     text-decoration: underline;
     color: LinkText;
+    cursor: pointer;
 }
