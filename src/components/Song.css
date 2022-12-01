@@ -1,18 +1,24 @@
 .Song {
     display: grid;
-    grid-template-columns: 4.5rem 1fr;
+    grid-template-columns: 4.5rem 4.5rem 1fr;
     grid-template-rows: repeat(3, minmax(1.5rem, auto));
 }
 
 /* .Song * { outline: 1px solid chartreuse } */
 
 .Song > * {
-    grid-column-start: 2;
+    grid-column-start: 3;
     width: fit-content;
 }
 
-.Song--chartpos {
+.Song--image {
     grid-area: 1 / 1 / span 2 / span 1;
+    width: 100%;
+    height: 100%;
+}
+
+.Song--chartpos {
+    grid-area: 1 / 2 / span 2 / span 1;
     align-self: center;
     justify-self: center;
     font-weight: bold;

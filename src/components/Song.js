@@ -3,6 +3,7 @@ import "./Song.css";
 const Song = ({song, onClickGenre}) => {
     /* NB. genre_href doesn't seem to work, but that's okay! */
     return <article className="Song">
+        <img className="Song--image" src={song.image} alt="Track thumbnail" />
         <span className="Song--chartpos">#{song.chartpos}</span>
         <h3 className="Song--name" href={song.href}>{song.name}</h3>
         <a className="Song--artist" href={song.artist_href}>by {song.artist}</a>
